@@ -1,0 +1,7 @@
+# Project Specific
+
+# other
+.idea
+node_modules
+cert.pem
+key.pem
