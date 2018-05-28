@@ -1,4 +1,4 @@
-import Map from './map/map';
+import Stage from './components/stage/stage';
 
 class Game {
 
@@ -8,38 +8,9 @@ class Game {
 
     // handlers
 
-    selectBtnClickHandler() {
-        const _this = this;
-
-        this.fb.context
-            .chooseAsync({
-                minSize: 2,
-                maxSize: 2
-            })
-            .then(function() {
-                _this.start();
-            })
-    }
-
     // game cycle
 
-    start() {
-        const _this = this;
-
-        this.fb.context.getPlayersAsync()
-            .then(function(players) {
-                if (_this.fb.context.getType() !== 'SOLO') {
-                    _this.toggleContextMenu(false);
-                }
-
-                /*console.log(players.map(function(player) {
-                    return {
-                        id: player.getID(),
-                        name: player.getName(),
-                    }
-                }));*/
-            });
-    }
+    start() {}
 
     // other
 
@@ -53,27 +24,16 @@ class Game {
     }
 
     init(node) {
-        const _this = this;
+        this.stage = new Stage(node.width());
 
-        this.contextMenu = node.find('.context-menu-layer');
-        this.map = new Map(node);
+        this.stage.init(node.find('.stage'));
+        this.fb
+            .initializeAsync()
+            .then(() => {
+                this.fb.setLoadingProgress(100);
 
-        this.contextMenu
-            .find('.select-btn')
-            .on('click', this.selectBtnClickHandler.bind(this));
-
-        this.fb.initializeAsync().then(function() {
-            _this.fb.setLoadingProgress(100);
-            _this.fb.startGameAsync().then(function() {
-
-                // check whether it a match or new game? how?????
-
-                // _this.fb.context.getType() !== 'SOLO'
-                // getEntryPointAsync() returns string
-
-                _this.toggleContextMenu(true);
+                return this.fb.startGameAsync()
             });
-        });
     }
 
 }
