@@ -6,3 +6,5 @@ dist
 node_modules
 cert.pem
 key.pem
+package-lock.json
+config.json
