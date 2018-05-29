@@ -16,6 +16,7 @@
     "gulp-zip": "^4.1.0",
     "request": "^2.85.0",
     "run-sequence": "^2.2.1",
+    "velocity-animate": "^1.5.1",
     "webpack": "^3.11.0",
     "webpack-stream": "^4.0.3"
   }

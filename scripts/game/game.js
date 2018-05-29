@@ -1,4 +1,5 @@
-import Stage from './components/stage/stage';
+import StageCtr from './components/stage/stage';
+import GameModel from './model/model';
 
 class Game {
 
@@ -24,7 +25,8 @@ class Game {
     }
 
     init(node) {
-        this.stage = new Stage(node.width());
+        this.model = new GameModel();
+        this.stage = new StageCtr(this);
 
         this.stage.init(node.find('.stage'));
         this.fb
