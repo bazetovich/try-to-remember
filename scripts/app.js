@@ -1,13 +1,11 @@
 import Game from './game/game';
 import $$ from 'dom7';
 
-(function(fb) {
+let game = new Game();
 
-    window.onload = function() {
-        const game = new Game(fb);
+window.onload = function() {
+    game.fb = FBInstant
+    game.init($$('#game'));
+};
 
-        game.init($$('#game'));
-    };
-
-})(FBInstant);
-
+export { game };

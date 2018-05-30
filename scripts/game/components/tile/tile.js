@@ -1,31 +1,50 @@
 import velocity from 'velocity-animate';
+import config from './config';
+
+'use strict';
 
 class TileCtr {
 
-    constructor(model) {
-        this.model = model;
-    }
-
-    // handlers
-
-    tileClickHandler() {
-        this.flip();
-    }
-
-    // methods
+    // animation
 
     flip() {
-        velocity(this.inner, {
-            rotateY: "180deg"
-        }, {duration: 500});
+        return velocity(
+            this.inner,
+            {
+                rotateY: "180deg"
+            },
+            {
+                duration: config.flipDuration
+            }
+        );
     }
 
+    flipBack() {
+        return velocity(
+            this.inner,
+            {
+                rotateY: "0deg"
+            },
+            {
+                duration: config.flipDuration
+            }
+        );
+    }
+
+    disable() {
+
+    }
+
+    // basic
+
     init(node) {
-        this.inner = node
-            .find('.tile-inner')
-            .on('click', () => {
-                this.tileClickHandler()
-            });
+        console.log(node.offset())
+
+        this.inner = node.find('.tile-inner');
+    }
+
+    constructor(model) {
+        this.model = model;
     }
 
 }

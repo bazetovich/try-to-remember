@@ -1,10 +1,16 @@
 import StageCtr from './components/stage/stage';
 import GameModel from './model/model';
+import Blocker from './blocker';
+
+'use strict';
 
 class Game {
 
-    constructor(FBInstant) {
-        this.fb = FBInstant;
+    constructor() {
+        this.fb = null;
+        this.model = new GameModel();
+        this.stageCtr = new StageCtr(this);
+        this.blocker = new Blocker();
     }
 
     // handlers
@@ -15,20 +21,8 @@ class Game {
 
     // other
 
-    toggleContextMenu(flag) {
-        if (flag) {
-            this.contextMenu.show();
-        }
-        else {
-            this.contextMenu.hide();
-        }
-    }
-
     init(node) {
-        this.model = new GameModel();
-        this.stage = new StageCtr(this);
-
-        this.stage.init(node.find('.stage'));
+        this.stageCtr.init(node.find('.stage'));
         this.fb
             .initializeAsync()
             .then(() => {
