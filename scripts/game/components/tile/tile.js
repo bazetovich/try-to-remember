@@ -31,16 +31,56 @@ class TileCtr {
         );
     }
 
-    disable() {
+    jump() {
+        return velocity(
+            this.back,
+            {
+                scale: 1.1,
+                boxShadowBlur: 20
+            },
+            {
+                duration: 1000,
+                easing: 'spring'
+            }
+        );
+    }
 
+    goTo(target) {
+        const offset = this.wrap.offset();
+
+        return velocity(
+            this.back,
+            {
+                top: -offset.top,
+                left: -offset.left,
+                opacity: 0,
+                height: 0,
+                boxShadowBlur: 0
+            },
+            {
+                duration: config.flipDuration,
+                easing: 'swing'
+            }
+        );
+    }
+
+    throwAway(target) {
+        return this.jump()
+            .then(() => {
+                return this.goTo({
+                    top: 0,
+                    left: 0
+                });
+            });
     }
 
     // basic
 
     init(node) {
-        console.log(node.offset())
-
+        this.wrap = node;
         this.inner = node.find('.tile-inner');
+        this.front = node.find('.front');
+        this.back = node.find('.back');
     }
 
     constructor(model) {

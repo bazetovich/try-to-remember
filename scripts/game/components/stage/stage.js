@@ -15,20 +15,20 @@ class StageCtr {
         e.stopPropagation();
 
         if (!this.globalBlocker.isBlocked()) {
-            let tile = $$(e.currentTarget);
+            let tile = $$(e.target).closest('.tile');
             let tileCtr = tile.data('controller');
 
             if (tileCtr) {
-                this.globalBlocker.block();
+                // this.globalBlocker.block();
 
                 tileCtr
-                    .flip()
-                    .then(() => {
+                    .throwAway()
+                    /*.then(() => {
                         return this.checkFlipped(tileCtr);
                     })
                     .then(() => {
                         this.globalBlocker.unBlock();
-                    });
+                    });*/
             }
         }
     }
@@ -46,16 +46,16 @@ class StageCtr {
         );
     }
 
-    disableFlipped() {
-        this.flipped.forEach(function(ctr) {
-            if (ctr) {
-                ctr.disable();
-            }
-        })
+    throwAwayFlipped() {
+        return Promise.all(this.flipped.map(function(ctr) {
+            return ctr.throwAway();
+        }))
     }
 
-    giveFlippedToCurrentUser() {
-
+    returnBackFlipped() {
+        return Promise.all(this.flipped.map(function(ctr) {
+            return ctr.flipBack();
+        }))
     }
 
     checkFlipped(ctr) {
@@ -65,21 +65,23 @@ class StageCtr {
             _this.flipped.push(ctr);
 
             if (_this.flipped.length === 2) {
-
                 if (_this.isFlippedEqual()) {
-                    _this.disableFlipped();
-                    _this.giveFlippedToCurrentUser()
+                    _this.throwAwayFlipped().then(function() {
+                        resolve();
+                        _this.flipped = [];
+                    });
                 }
                 else {
-
+                    _this.returnBackFlipped().then(function() {
+                        resolve();
+                        _this.flipped = [];
+                    });
                 }
-
-                // _this.flipped = [];
             }
             else {
                 resolve();
             }
-        })
+        });
     }
 
     init(node) {
@@ -98,7 +100,9 @@ class StageCtr {
                 ctr.init(tpl);
             });
 
-        node.on('click', '.tile.tile-inner', () => this.clickTileHandler());
+        node.on('click', '.tile-inner', (e) => {
+            this.clickTileHandler(e);
+        });
     }
 
 }

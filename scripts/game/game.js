@@ -8,8 +8,8 @@ class Game {
 
     constructor() {
         this.fb = null;
+        this.stageCtr = null;
         this.model = new GameModel();
-        this.stageCtr = new StageCtr(this);
         this.blocker = new Blocker();
     }
 
@@ -22,6 +22,8 @@ class Game {
     // other
 
     init(node) {
+        this.stageCtr = new StageCtr(this);
+
         this.stageCtr.init(node.find('.stage'));
         this.fb
             .initializeAsync()
