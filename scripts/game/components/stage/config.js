@@ -1,3 +1,1 @@
-export default {
-    tileCount: 16
-}
+export default {}

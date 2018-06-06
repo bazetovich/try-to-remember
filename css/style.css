@@ -63,4 +63,6 @@ html, body {
 .tile-inner .back {
 	background: #d3d4f1;
 	transform: rotateY(180deg);
+	background-repeat: no-repeat;
+	background-position: center;
 }

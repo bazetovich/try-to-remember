@@ -74,6 +74,16 @@ class TileCtr {
             });
     }
 
+    // other
+
+    updateState() {
+        if (this.model) {
+            this.back.css({
+                backgroundImage: `url(${this.model.imgPath()})`
+            })
+        }
+    }
+
     // basic
 
     init(node) {
@@ -81,6 +91,8 @@ class TileCtr {
         this.inner = node.find('.tile-inner');
         this.front = node.find('.front');
         this.back = node.find('.back');
+
+        this.updateState();
     }
 
     constructor(model) {

@@ -19,30 +19,28 @@ class StageCtr {
             let tileCtr = tile.data('controller');
 
             if (tileCtr) {
-                // this.globalBlocker.block();
+                this.globalBlocker.block();
 
                 tileCtr
-                    .throwAway()
-                    /*.then(() => {
+                    .flip()
+                    .then(() => {
                         return this.checkFlipped(tileCtr);
                     })
                     .then(() => {
                         this.globalBlocker.unBlock();
-                    });*/
+                    });
             }
         }
     }
 
     isFlippedEqual() {
-        let first =  this.flipped[0];
-        let second =  this.flipped[1];
+        let first = this.flipped[0] && this.flipped[0].model;
+        let second = this.flipped[1] && this.flipped[1].model;
 
         return Boolean(
             first &&
-            first.model &&
             second &&
-            second.model &&
-            first.model.id() === second.model.id()
+            first.equal(second)
         );
     }
 

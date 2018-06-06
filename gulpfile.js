@@ -27,6 +27,11 @@ gulp.task('styles', function() {
         .pipe(gulp.dest('dist'));
 });
 
+gulp.task('images', function() {
+    return gulp.src('images/**.**')
+        .pipe(gulp.dest('dist'));
+});
+
 gulp.task('webpack', function(cb) {
     let config = require('./webpack.config.js');
     let firstBuildReady = false;
@@ -52,7 +57,7 @@ gulp.task('webpack-prod', function() {
         .pipe(gulp.dest('dist'))
 });
 
-gulp.task('build', ['index.html', 'styles'])
+gulp.task('build', ['index.html', 'styles', 'images'])
 
 gulp.task('watch', function() {
     gulp.watch('index.html', ['index.html']);
