@@ -19,7 +19,7 @@ class Game {
 
     start() {}
 
-    // other
+    // basic
 
     init(node) {
         this.stageCtr = new StageCtr(this);
@@ -32,6 +32,10 @@ class Game {
 
                 return this.fb.startGameAsync()
             });
+    }
+
+    destroy() {
+        // todo: destroying
     }
 
 }

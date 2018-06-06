@@ -14,7 +14,8 @@ class TileCtr {
                 rotateY: "180deg"
             },
             {
-                duration: config.flipDuration
+                duration: config.flipDuration,
+                complete: () => this.toggleFlipped(true)
             }
         );
     }
@@ -26,7 +27,8 @@ class TileCtr {
                 rotateY: "0deg"
             },
             {
-                duration: config.flipDuration
+                duration: config.flipDuration,
+                complete: () => this.toggleFlipped(false)
             }
         );
     }
@@ -75,6 +77,15 @@ class TileCtr {
     }
 
     // other
+
+    toggleFlipped(flag) {
+        if (flag) {
+            this.wrap.addClass('flipped');
+        }
+        else {
+            this.wrap.removeClass('flipped');
+        }
+    }
 
     updateState() {
         if (this.model) {
