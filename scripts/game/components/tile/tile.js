@@ -79,16 +79,14 @@ class TileCtr {
     // other
 
     toggleFlipped(flag) {
-        if (flag) {
-            this.wrap.addClass('flipped');
-        }
-        else {
-            this.wrap.removeClass('flipped');
-        }
+        this.wrap.toggleClass('flipped', flag);
     }
 
     updateState() {
         if (this.model) {
+            /*this.wrap
+                .height(this.parentCtr.tileSize)
+                .width(this.parentCtr.tileSize);*/
             this.back.css({
                 backgroundImage: `url(${this.model.imgPath()})`
             })
@@ -106,8 +104,9 @@ class TileCtr {
         this.updateState();
     }
 
-    constructor(model) {
+    constructor(parentCtr, model) {
         this.model = model;
+        this.parentCtr = parentCtr;
     }
 
 }

@@ -1,4 +1,4 @@
-import $$ from 'dom7';
+import $ from 'jquery';
 import TileCtr from '../tile/tile';
 
 'use strict';
@@ -9,13 +9,14 @@ class StageCtr {
         this.parent = parent;
         this.globalBlocker = parent.blocker;
         this.flipped = [];
+        this.tileSize = 0;
     }
 
     clickTileHandler(e) {
         e.stopPropagation();
 
         if (!this.globalBlocker.isBlocked()) {
-            let tile = $$(e.target).closest('.tile');
+            let tile = $(e.target).closest('.tile');
             let tileCtr = tile.data('controller');
 
             if (tileCtr) {
@@ -88,13 +89,12 @@ class StageCtr {
         this.parent.model
             .getTiles()
             .forEach((model) => {
-                const ctr = new TileCtr(model);
-                const tpl = $$('<div class="tile"><div class="tile-inner"><div class="front"></div><div class="back"></div></div></div>');
+                const ctr = new TileCtr(this, model);
+                const tpl = $('<div class="tile"><div class="tile-inner"><div class="front"></div><div class="back"></div></div></div>');
 
                 tpl
                     .data('controller', ctr)
                     .appendTo(node)
-
                 ctr.init(tpl);
             });
 
