@@ -6,8 +6,13 @@ class GameModel {
 
     constructor() {
         this.tiles = null;
+        this.player = null;
 
         this.assignTiles();
+    }
+
+    setPlayer(player) {
+        this.player = player;
     }
 
     assignTiles() {

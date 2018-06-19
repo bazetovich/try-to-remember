@@ -68,8 +68,8 @@ gulp.task('server', function() {
     return gulp.src('./dist')
         .pipe(webserver({
             https: true,
-            port: 8000,
-            open: 'https://www.facebook.com/embed/instantgames/' + config.FB_appId + '/player?game_url=https://localhost:8000'
+            port: 8080,
+            open: 'https://www.facebook.com/embed/instantgames/' + config.FB_appId + '/player?game_url=https://localhost:8080'
         }));
 });
 
